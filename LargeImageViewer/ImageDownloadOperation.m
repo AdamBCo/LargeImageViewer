@@ -49,17 +49,6 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:self.imageURL];
     [downloadTask resume];
-        
-//    NSError *error = nil;
-//    NSData *data = [NSData dataWithContentsOfURL:self.imageURL options:NSDataReadingUncached error:&error];
-//    if (data) {
-//        
-//        
-//        UIImage *image = [UIImage imageWithCGImage:ThumbnailImageFromData(data, 100000000)];
-//        [self.delegate imageDownloadOperationDidFinish:self withImage:image];
-//        [self completeOperation];
-//
-//    }
 }
 
 #pragma mark - NSURLSessionDownloadDelegate Methods
@@ -78,20 +67,21 @@
     
 }
 
+#pragma mark - ImageIO Compression Methods
+
 CGImageRef ThumbnailImageAtPath (NSURL *location) {
-    // Create the image source
-    CGImageSourceRef src = CGImageSourceCreateWithURL((__bridge CFURLRef) location, NULL);
-    // Create thumbnail options
+
+    CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef) location, NULL);
+
     CFDictionaryRef options = (__bridge CFDictionaryRef) @{
                                                            (id) kCGImageSourceCreateThumbnailWithTransform : @YES,
                                                            (id) kCGImageSourceCreateThumbnailFromImageAlways : @YES,
                                                            (id) kCGImageSourceThumbnailMaxPixelSize : @(640)
                                                            };
     // Generate the thumbnail
-    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(src, 0, options); 
-    CFRelease(src);
+    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(source, 0, options);
+    CFRelease(source);
     
-    // Make sure the thumbnail image exists before continuing.
     if (thumbnail == NULL){
         fprintf(stderr, "Thumbnail image not created from image source.");
         return NULL;
@@ -99,65 +89,6 @@ CGImageRef ThumbnailImageAtPath (NSURL *location) {
     
     return thumbnail;
 }
-
-
-
-CGImageRef ThumbnailImageFromData (NSData * data, NSInteger imageSize)
-{
-    CGImageRef        myThumbnailImage = NULL;
-    CGImageSourceRef  myImageSource;
-    CFDictionaryRef   myOptions = NULL;
-    CFStringRef       myKeys[3];
-    CFTypeRef         myValues[3];
-    CFNumberRef       thumbnailSize;
-    
-    // Create an image source from NSData; no options.
-    myImageSource = CGImageSourceCreateWithData((CFDataRef)data,
-                                                NULL);
-    // Make sure the image source exists before continuing.
-    if (myImageSource == NULL){
-        fprintf(stderr, "Image source is NULL.");
-        return  NULL;
-    }
-    
-    // Package the integer as a  CFNumber object. Using CFTypes allows you
-    // to more easily create the options dictionary later.
-    thumbnailSize = CFNumberCreate(NULL, kCFNumberIntType, &imageSize);
-    
-    // Set up the thumbnail options.
-    myKeys[0] = kCGImageSourceCreateThumbnailWithTransform;
-    myValues[0] = (CFTypeRef)kCFBooleanTrue;
-    myKeys[1] = kCGImageSourceCreateThumbnailFromImageIfAbsent;
-    myValues[1] = (CFTypeRef)kCFBooleanTrue;
-    myKeys[2] = kCGImageSourceThumbnailMaxPixelSize;
-    myValues[2] = (CFTypeRef)thumbnailSize;
-
-    
-    myOptions = CFDictionaryCreate(NULL, (const void **) myKeys,
-                                   (const void **) myValues, 2,
-                                   &kCFTypeDictionaryKeyCallBacks,
-                                   & kCFTypeDictionaryValueCallBacks);
-    
-    // Create the thumbnail image using the specified options.
-    myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource,
-                                                           0,
-                                                           myOptions);
-    // Release the options dictionary and the image source
-    // when you no longer need them.
-    CFRelease(thumbnailSize);
-    CFRelease(myOptions);
-    CFRelease(myImageSource);
-    
-    // Make sure the thumbnail image exists before continuing.
-    if (myThumbnailImage == NULL){
-        fprintf(stderr, "Thumbnail image not created from image source.");
-        return NULL;
-    }
-    
-    return myThumbnailImage;
-}
-
-
 
 
 @end

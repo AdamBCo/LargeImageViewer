@@ -96,6 +96,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		878746DD1BF31AA200ECAF5D /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				87F073151BF1A097004632D0 /* ImageDownloadOperation.h */,
+				87F073161BF1A097004632D0 /* ImageDownloadOperation.m */,
+				878746DA1BF2FDF600ECAF5D /* ConcurrentOperation.h */,
+				878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */,
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
+		878746DE1BF31AAF00ECAF5D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				87F073121BF19FE5004632D0 /* ImageManager.h */,
+				87F073131BF19FE5004632D0 /* ImageManager.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		87F072D01BF19ECA004632D0 = {
 			isa = PBXGroup;
 			children = (
@@ -126,13 +146,9 @@
 				87F073241BF241EF004632D0 /* FullSizeImageViewController.h */,
 				87F073251BF241EF004632D0 /* FullSizeImageViewController.m */,
 				87F073231BF2419E004632D0 /* Views */,
-				87F073121BF19FE5004632D0 /* ImageManager.h */,
-				87F073131BF19FE5004632D0 /* ImageManager.m */,
+				878746DE1BF31AAF00ECAF5D /* Networking */,
 				87F073221BF2418C004632D0 /* Categories */,
-				87F073151BF1A097004632D0 /* ImageDownloadOperation.h */,
-				87F073161BF1A097004632D0 /* ImageDownloadOperation.m */,
-				878746DA1BF2FDF600ECAF5D /* ConcurrentOperation.h */,
-				878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */,
+				878746DD1BF31AA200ECAF5D /* Operations */,
 				87F072E81BF19ECA004632D0 /* Assets.xcassets */,
 				87F072EA1BF19ECA004632D0 /* LaunchScreen.storyboard */,
 				87F072ED1BF19ECA004632D0 /* Info.plist */,

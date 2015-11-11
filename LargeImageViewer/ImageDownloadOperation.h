@@ -16,7 +16,6 @@
 - (void)imageDownloadOperationDidFinish:(ImageDownloadOperation *)operation withImage:(UIImage *)image;
 - (void)imageDownloadOperation:(ImageDownloadOperation *)operation didUpdateWithProgress:(float)progress;
 
-
 @end
 
 
