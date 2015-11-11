@@ -11,7 +11,6 @@
 @interface FullSizeImageViewController ()
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIBarButtonItem *closeButton;
 
 @end
 
@@ -31,21 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.navigationItem setRightBarButtonItem:self.closeButton];
     [self.view addSubview:self.imageView];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Actions
-
--(void)onCloseButtonPressed:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Properties
@@ -58,13 +47,6 @@
         
     }
     return _imageView;
-}
-
--(UIBarButtonItem *)closeButton {
-    if (!_closeButton) {
-        _closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(onCloseButtonPressed:)];
-    }
-    return _closeButton;
 }
 
 @end

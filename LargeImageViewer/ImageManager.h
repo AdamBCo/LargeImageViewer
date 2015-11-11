@@ -12,11 +12,8 @@
 
 @protocol ImageManagerDelegate <NSObject>
 
-
 - (void)imageManagerDidUpdate:(ImageManager *)manager;
 - (void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress;
-
-
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "GalleryViewController.h"
 #import "FullSizeImageViewController.h"
 #import "ImageManager.h"
 #import "ImageCollectionViewCell.h"
@@ -28,6 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    NSString *titleString = [NSString stringWithFormat:@"1 / %lu", (unsigned long)self.largeImageURLs.count];
+    [self setTitle:titleString];
+    
     
     for (NSURL *url in self.largeImageURLs) {
         [[ImageManager sharedInstance] setDelegate:self];
@@ -77,7 +82,6 @@
         [self.progressView setProgress:progress];
     });
 
-
 }
 
 
@@ -110,15 +114,21 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [cell.imageView setImage:image];
     });
+    
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UIImage *image = [[ImageManager sharedInstance].imagesArray objectAtIndex:indexPath.row];
-
-    FullSizeImageViewController *fullSizeImageViewController = [[FullSizeImageViewController alloc] initWithImage:image];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fullSizeImageViewController];
+    NSMutableArray *imageViewControllers = [NSMutableArray array];
+    
+    for (UIImage *image in [ImageManager sharedInstance].imagesArray) {
+        FullSizeImageViewController *fullSizeImageViewController = [[FullSizeImageViewController alloc] initWithImage:image];
+        [imageViewControllers addObject:fullSizeImageViewController];
+    }
+    
+    GalleryViewController *galleryViewController = [[GalleryViewController alloc] initWithViewControllers:[NSArray arrayWithArray:imageViewControllers] andIndex:@(indexPath.row).intValue];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:galleryViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 
 }

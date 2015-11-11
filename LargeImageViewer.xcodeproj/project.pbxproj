@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		878746DC1BF2FDF600ECAF5D /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */; };
+		878746E11BF31C0300ECAF5D /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 878746E01BF31C0300ECAF5D /* GalleryViewController.m */; };
 		87F072DE1BF19ECA004632D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F072DD1BF19ECA004632D0 /* main.m */; };
 		87F072E11BF19ECA004632D0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F072E01BF19ECA004632D0 /* AppDelegate.m */; };
 		87F072E91BF19ECA004632D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F072E81BF19ECA004632D0 /* Assets.xcassets */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		878746DA1BF2FDF600ECAF5D /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
 		878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentOperation.m; sourceTree = "<group>"; };
+		878746DF1BF31C0300ECAF5D /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		878746E01BF31C0300ECAF5D /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		87F072D91BF19ECA004632D0 /* LargeImageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LargeImageViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87F072DD1BF19ECA004632D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		87F072DF1BF19ECA004632D0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				87F073101BF19F42004632D0 /* MainViewController.m */,
 				87F073241BF241EF004632D0 /* FullSizeImageViewController.h */,
 				87F073251BF241EF004632D0 /* FullSizeImageViewController.m */,
+				878746DF1BF31C0300ECAF5D /* GalleryViewController.h */,
+				878746E01BF31C0300ECAF5D /* GalleryViewController.m */,
 				87F073231BF2419E004632D0 /* Views */,
 				878746DE1BF31AAF00ECAF5D /* Networking */,
 				87F073221BF2418C004632D0 /* Categories */,
@@ -341,6 +346,7 @@
 				87F072DE1BF19ECA004632D0 /* main.m in Sources */,
 				87F073141BF19FE5004632D0 /* ImageManager.m in Sources */,
 				878746DC1BF2FDF600ECAF5D /* ConcurrentOperation.m in Sources */,
+				878746E11BF31C0300ECAF5D /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
