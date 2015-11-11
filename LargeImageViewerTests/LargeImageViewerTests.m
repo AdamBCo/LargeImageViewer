@@ -7,12 +7,17 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "ImageManager.h"
 
-@interface LargeImageViewerTests : XCTestCase
+@interface LargeImageViewerTests : XCTestCase <ImageManagerDelegate>
 
 @end
 
-@implementation LargeImageViewerTests
+@implementation LargeImageViewerTests {
+    XCTestExpectation *_downloadLargeImageSuccessExpectation;
+    XCTestExpectation *_downloadLargeImageFailedExpectation;
+
+}
 
 - (void)setUp {
     [super setUp];
@@ -24,16 +29,58 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (NSURL *)largeImageURL {
+    return [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/8/81/Carn_Eige_Scotland_-_Full_Panorama_from_Summit.jpeg"];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+
+- (void)testLargeImageDownload {
+    
+    _downloadLargeImageSuccessExpectation = [self expectationWithDescription:@"Large Image Donwloading From Web"];
+    
+    [[ImageManager sharedInstance] setDelegate:self];
+    [[ImageManager sharedInstance] downloadImageWithURL:[self largeImageURL]];
+    
+    [self waitForExpectationsWithTimeout:60
+                                 handler:^(NSError *error) {
+                                     // handler is called on _either_ success or failure
+                                     if (error != nil) {
+                                         XCTFail(@"timeout error: %@", error);
+                                     }
+                                 }];
+}
+
+- (void)testLargeImageDownloadWithNilURL {
+    
+    _downloadLargeImageFailedExpectation = [self expectationWithDescription:@"Large Image Donwloading With Nil URL"];
+    
+    [[ImageManager sharedInstance] setDelegate:self];
+    [[ImageManager sharedInstance] downloadImageWithURL:nil];
+    
+    [self waitForExpectationsWithTimeout:60
+                                 handler:^(NSError *error) {
+                                     // handler is called on _either_ success or failure
+                                     if (error != nil) {
+                                         XCTFail(@"timeout error: %@", error);
+                                     }
+                                 }];
+}
+
+-(void)imageManagerDidUpdate:(ImageManager *)manager {
+    NSLog(@"SUCCESS");
+    [_downloadLargeImageSuccessExpectation fulfill];
+    XCTAssert(YES, @"Large Image Downloaded From Web");
+}
+
+-(void)imageManagerDidFail:(ImageManager *)manager withError:(NSError *)error {
+    NSLog(@"ERROR");
+    [_downloadLargeImageFailedExpectation fulfill];
+    XCTAssertNotNil(error, @"Large Image Downloaded Failed With Error");
+
+}
+
+-(void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress {
+    NSLog(@"PROGRESS");
 }
 
 @end

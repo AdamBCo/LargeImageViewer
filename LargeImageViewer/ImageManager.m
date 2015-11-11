@@ -45,6 +45,7 @@
 #pragma mark - ImageDownloadOperationDelegate Methods
 
 -(void)imageDownloadOperationDidFail:(ImageDownloadOperation *)operation withError:(NSError *)error {
+    [[ImageManager sharedInstance].imageURLsArray removeObject:operation.imageURL];
     [self.delegate imageManagerDidFail:self withError:error];
 }
 

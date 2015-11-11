@@ -70,6 +70,11 @@
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error) {
         [self.delegate imageDownloadOperationDidFail:self withError:error];
+    } else {
+       NSError *unknownError = [NSError errorWithDomain:@"Unknown Error"
+                            code:404
+                        userInfo:@{NSLocalizedDescriptionKey: @"An unknown error has occured."}];
+        [self.delegate imageDownloadOperationDidFail:self withError:unknownError];
     }
 }
 

@@ -14,6 +14,8 @@
 
 - (void)imageManagerDidUpdate:(ImageManager *)manager;
 - (void)imageManagerDidFail:(ImageManager *)manager withError:(NSError *)error;
+
+@optional
 - (void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress;
 
 @end
