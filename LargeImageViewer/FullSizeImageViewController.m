@@ -44,7 +44,6 @@
         _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         [_imageView setContentMode:UIViewContentModeScaleAspectFit];
         [_imageView setImage:_image];
-        
     }
     return _imageView;
 }

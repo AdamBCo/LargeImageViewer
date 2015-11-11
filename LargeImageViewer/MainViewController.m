@@ -44,14 +44,22 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - ImageManagerDelegate Methods
 
 -(void)imageManagerDidUpdate:(ImageManager *)manager {
+  
+    
+#warning FIX THIS MAJOR ISSUE
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
