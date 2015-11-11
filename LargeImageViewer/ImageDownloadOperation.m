@@ -37,11 +37,22 @@
 
 -(void)main {
     
+    //Check if state of operation is cancelled.
     if (self.isCancelled) {
+        [self completeOperation];
         return;
     }
     
+    
+    //Chek for nil URL
     if (self.imageURL == nil) {
+        
+        NSError *unknownError = [NSError errorWithDomain:@"Missing URL"
+                                                    code:420
+                                                userInfo:@{NSLocalizedDescriptionKey: @"The URL is missing."}];
+        [self.delegate imageDownloadOperationDidFail:self withError:unknownError];
+        [self completeOperation];
+        
         return;
     }
     
@@ -61,8 +72,13 @@
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     
+    //1) Compress image by utilizing the ImageIO framwork
     UIImage *image = [UIImage imageWithCGImage:ThumbnailImageAtPath(location)];
+    
+    //2) Send image to Delegate
     [self.delegate imageDownloadOperationDidFinish:self withImage:image];
+    
+    //3) Call completion to end Concurrent Operation
     [self completeOperation];
     
 }
@@ -70,11 +86,7 @@
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error) {
         [self.delegate imageDownloadOperationDidFail:self withError:error];
-    } else {
-       NSError *unknownError = [NSError errorWithDomain:@"Unknown Error"
-                            code:404
-                        userInfo:@{NSLocalizedDescriptionKey: @"An unknown error has occured."}];
-        [self.delegate imageDownloadOperationDidFail:self withError:unknownError];
+        [self completeOperation];
     }
 }
 
