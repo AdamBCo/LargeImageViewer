@@ -156,6 +156,7 @@
 -(void)onDeleteButtonPressed:(UIBarButtonItem *)sender {
     
     [[ImageManager sharedInstance].imagesArray removeObjectAtIndex:_index];
+    [[ImageManager sharedInstance].imageURLsArray removeObjectAtIndex:_index];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

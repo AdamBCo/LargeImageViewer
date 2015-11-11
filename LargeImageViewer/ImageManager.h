@@ -26,6 +26,7 @@
 @property (nonatomic, assign) id <ImageManagerDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableArray *imagesArray;
+@property (nonatomic, strong) NSMutableArray *imageURLsArray;
 
 
 @end

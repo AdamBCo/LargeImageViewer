@@ -16,7 +16,6 @@
 @interface MainViewController () <ImageManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *largeImageURLs;
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, strong) UIProgressView *progressView;
 
@@ -30,14 +29,12 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    NSString *titleString = [NSString stringWithFormat:@"1 / %lu", (unsigned long)self.largeImageURLs.count];
-    [self setTitle:titleString];
-    
-    
-    for (NSURL *url in self.largeImageURLs) {
+    //Start Downloading Images
+    for (NSURL *url in [ImageManager sharedInstance].imageURLsArray) {
         [[ImageManager sharedInstance] setDelegate:self];
         [[ImageManager sharedInstance] downloadImageWithURL:url];
     }
+    
     [self.view addSubview:self.progressView];
     [self.view addSubview:self.collectionView];
 
@@ -46,7 +43,17 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.collectionView reloadData];
+    
+    //Update UI Elements
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        NSString *titleString = [NSString stringWithFormat:@"1 / %lu",(unsigned long)[ImageManager sharedInstance].imageURLsArray.count];
+        [self setTitle:titleString];
+        
+        _oldImageCount = (int)[ImageManager sharedInstance].imagesArray.count;
+        [self.collectionView reloadData];
+        
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,14 +63,10 @@
 #pragma mark - ImageManagerDelegate Methods
 
 -(void)imageManagerDidUpdate:(ImageManager *)manager {
-  
-    
-#warning FIX THIS MAJOR ISSUE
-    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        NSString *titleString = [NSString stringWithFormat:@"%lu / %lu",(unsigned long)[ImageManager sharedInstance].imagesArray.count, (unsigned long)self.largeImageURLs.count];
+        NSString *titleString = [NSString stringWithFormat:@"%lu / %lu",(unsigned long)[ImageManager sharedInstance].imagesArray.count, (unsigned long)[ImageManager sharedInstance].imageURLsArray.count];
         [self setTitle:titleString];
             
             NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
@@ -185,23 +188,5 @@
     return _progressView;
 }
 
-
--(NSArray *)largeImageURLs {
-    if (!_largeImageURLs) {
-        _largeImageURLs = @[
-                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/8/81/Carn_Eige_Scotland_-_Full_Panorama_from_Summit.jpeg"],
-                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/1/1c/NGC_6302_Hubble_2009.full.jpg"],
-                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/3/3c/Merging_galaxies_NGC_4676_(captured_by_the_Hubble_Space_Telescope).jpg"],
-                            [NSURL URLWithString:@"http://spaceflight.nasa.gov/gallery/images/shuttle/sts-125/hires/s125e012033.jpg"],
-                            [NSURL URLWithString:@"http://mayang.com/textures/Plants/images/Flowers/large_flower_6080110.JPG"],
-                            [NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/3/3d/LARGE_elevation.jpg"],
-                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/c/ca/Star-forming_region_S106_(captured_by_the_Hubble_Space_Telescope).jpg"],
-                            [NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG"],
-                            [NSURL URLWithString:@"http://www.highreshdwallpapers.com/wp-content/uploads/2011/09/Large-Format-HD-Wallpaper.jpg"],
-                            [NSURL URLWithString:@"http://www.largeformatphotography.info/qtluong/delicatearch.big.jpeg"]];
-
-    }
-    return _largeImageURLs;
-}
 
 @end
