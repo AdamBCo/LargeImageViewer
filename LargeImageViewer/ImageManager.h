@@ -13,6 +13,7 @@
 @protocol ImageManagerDelegate <NSObject>
 
 - (void)imageManagerDidUpdate:(ImageManager *)manager;
+- (void)imageManagerDidFail:(ImageManager *)manager withError:(NSError *)error;
 - (void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress;
 
 @end

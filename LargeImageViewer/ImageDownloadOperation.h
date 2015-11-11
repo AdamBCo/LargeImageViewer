@@ -13,6 +13,7 @@
 
 @protocol ImageDownloadOperationDelegate <NSObject>
 
+- (void)imageDownloadOperationDidFail:(ImageDownloadOperation *)operation withError:(NSError *)error;
 - (void)imageDownloadOperationDidFinish:(ImageDownloadOperation *)operation withImage:(UIImage *)image;
 - (void)imageDownloadOperation:(ImageDownloadOperation *)operation didUpdateWithProgress:(float)progress;
 

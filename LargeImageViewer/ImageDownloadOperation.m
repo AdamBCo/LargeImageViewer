@@ -67,6 +67,12 @@
     
 }
 
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error) {
+        [self.delegate imageDownloadOperationDidFail:self withError:error];
+    }
+}
+
 #pragma mark - ImageIO Compression Methods
 
 CGImageRef ThumbnailImageAtPath (NSURL *location) {

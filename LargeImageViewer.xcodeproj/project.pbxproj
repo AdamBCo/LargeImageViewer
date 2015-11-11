@@ -115,6 +115,7 @@
 			children = (
 				87F073121BF19FE5004632D0 /* ImageManager.h */,
 				87F073131BF19FE5004632D0 /* ImageManager.m */,
+				878746DD1BF31AA200ECAF5D /* Operations */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -146,14 +147,13 @@
 				87F072E01BF19ECA004632D0 /* AppDelegate.m */,
 				87F0730F1BF19F42004632D0 /* MainViewController.h */,
 				87F073101BF19F42004632D0 /* MainViewController.m */,
-				87F073241BF241EF004632D0 /* FullSizeImageViewController.h */,
-				87F073251BF241EF004632D0 /* FullSizeImageViewController.m */,
 				878746DF1BF31C0300ECAF5D /* GalleryViewController.h */,
 				878746E01BF31C0300ECAF5D /* GalleryViewController.m */,
-				87F073231BF2419E004632D0 /* Views */,
+				87F073241BF241EF004632D0 /* FullSizeImageViewController.h */,
+				87F073251BF241EF004632D0 /* FullSizeImageViewController.m */,
+				87F073231BF2419E004632D0 /* Cells */,
 				878746DE1BF31AAF00ECAF5D /* Networking */,
 				87F073221BF2418C004632D0 /* Categories */,
-				878746DD1BF31AA200ECAF5D /* Operations */,
 				87F072E81BF19ECA004632D0 /* Assets.xcassets */,
 				87F072EA1BF19ECA004632D0 /* LaunchScreen.storyboard */,
 				87F072ED1BF19ECA004632D0 /* Info.plist */,
@@ -197,14 +197,14 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		87F073231BF2419E004632D0 /* Views */ = {
+		87F073231BF2419E004632D0 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				87F0731B1BF1D57B004632D0 /* ImageCollectionViewCell.h */,
 				87F0731C1BF1D57B004632D0 /* ImageCollectionViewCell.m */,
 				87F073201BF24041004632D0 /* ImageCollectionViewCell.xib */,
 			);
-			name = Views;
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

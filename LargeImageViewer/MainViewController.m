@@ -95,6 +95,36 @@
 
 }
 
+-(void)imageManagerDidFail:(ImageManager *)manager withError:(NSError *)error {
+    
+    NSString *errorMessage = [NSString stringWithFormat:@"ERROR: %@",error.localizedDescription];
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"Error"
+                                          message:errorMessage
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                       //Update UI Elements
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           
+                                           NSString *titleString = [NSString stringWithFormat:@"%lu / %lu",(unsigned long)[ImageManager sharedInstance].imagesArray.count, (unsigned long)[ImageManager sharedInstance].imageURLsArray.count];
+                                           [self setTitle:titleString];
+                                           
+                                           _oldImageCount = (int)[ImageManager sharedInstance].imagesArray.count;
+                                           
+                                       });
+                                   }];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+
+}
+
 
 #pragma mark - CollectionView DataSource
 

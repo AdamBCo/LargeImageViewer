@@ -35,18 +35,22 @@
 -(void)downloadImageWithURL:(NSURL *)url {
     
     ImageDownloadOperation *imageDownloadOperation = [[ImageDownloadOperation alloc] initWithImageURL:url];
-    [imageDownloadOperation setDelegate:self];
+    
     if (![self.largeImageDownloadQueue.operations containsObject:imageDownloadOperation]) {
+        [imageDownloadOperation setDelegate:self];
         [self.largeImageDownloadQueue addOperation:imageDownloadOperation];
     }
 }
 
 #pragma mark - ImageDownloadOperationDelegate Methods
 
+-(void)imageDownloadOperationDidFail:(ImageDownloadOperation *)operation withError:(NSError *)error {
+    [self.delegate imageManagerDidFail:self withError:error];
+}
+
 -(void)imageDownloadOperationDidFinish:(ImageDownloadOperation *)operation withImage:(UIImage *)image{
     [self.imagesArray addObject:image];
     [self.delegate imageManagerDidUpdate:self];
-
 }
 
 -(void)imageDownloadOperation:(ImageDownloadOperation *)operation didUpdateWithProgress:(float)progress {
