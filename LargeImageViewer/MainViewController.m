@@ -23,20 +23,17 @@
 
 @implementation MainViewController {
     int _oldImageCount;
-    BOOL _updatingUI;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    UINib *nib = [UINib nibWithNibName:[ImageCollectionViewCell reuseIdentifier] bundle: nil];
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:[ImageCollectionViewCell reuseIdentifier]];
-    
     for (NSURL *url in self.largeImageURLs) {
         [[ImageManager sharedInstance] setDelegate:self];
         [[ImageManager sharedInstance] downloadImageWithURL:url];
     }
+    [self.view addSubview:self.progressView];
     [self.view addSubview:self.collectionView];
 
     
@@ -52,14 +49,15 @@
 -(void)imageManagerDidUpdate:(ImageManager *)manager {
     
     dispatch_async(dispatch_get_main_queue(), ^{
-
-        if (!_updatingUI) {
-            _updatingUI = YES;
+        
+        NSString *titleString = [NSString stringWithFormat:@"%lu / %lu",(unsigned long)[ImageManager sharedInstance].imagesArray.count, (unsigned long)self.largeImageURLs.count];
+        [self setTitle:titleString];
             
             NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
             
-            for (int i = 0; i < [ImageManager sharedInstance].imagesArray.count - _oldImageCount; i++)
+            for (int i = 0; i < [ImageManager sharedInstance].imagesArray.count - _oldImageCount; i++) {
                 [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i+_oldImageCount inSection:0]];
+            }
             
             [self.collectionView performBatchUpdates:^{
                 
@@ -67,15 +65,19 @@
                 
             } completion:^(BOOL finished) {
                 _oldImageCount = (int)[ImageManager sharedInstance].imagesArray.count;
-                _updatingUI = NO;
 
             }];
-        }
-        
     });
-        
-
     
+}
+
+-(void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.progressView setProgress:progress];
+    });
+
+
 }
 
 
@@ -129,15 +131,18 @@
 
 #pragma mark - Properties
 
-
-
 -(UICollectionView *)collectionView {
     if (!_collectionView) {
+        
         UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 3, self.view.width, self.view.height) collectionViewLayout:layout];
         [_collectionView registerClass:[ImageCollectionViewCell class] forCellWithReuseIdentifier:[ImageCollectionViewCell reuseIdentifier]];
         [_collectionView setDataSource:self];
         [_collectionView setDelegate:self];
+        
+        
+        UINib *nib = [UINib nibWithNibName:[ImageCollectionViewCell reuseIdentifier] bundle: nil];
+        [_collectionView registerNib:nib forCellWithReuseIdentifier:[ImageCollectionViewCell reuseIdentifier]];
 
     }
     return _collectionView;
@@ -153,8 +158,10 @@
 
 -(UIProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
-        [_progressView setCenter:self.view.center];
+        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0, self.view.width, 3)];
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, 3.0f);
+        [_progressView setTransform:transform];
+        [_progressView setProgressTintColor:[UIColor redColor]];
 
     }
     return _progressView;
@@ -163,29 +170,20 @@
 
 -(NSArray *)largeImageURLs {
     if (!_largeImageURLs) {
-        _largeImageURLs = @[[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/8/81/Carn_Eige_Scotland_-_Full_Panorama_from_Summit.jpeg"],
-                         [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/1/1c/NGC_6302_Hubble_2009.full.jpg"],
-                         [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/3/3c/Merging_galaxies_NGC_4676_(captured_by_the_Hubble_Space_Telescope).jpg"],
-                         [NSURL URLWithString:@"http://spaceflight.nasa.gov/gallery/images/shuttle/sts-125/hires/s125e012033.jpg"],
-                         [NSURL URLWithString:@"http://mayang.com/textures/Plants/images/Flowers/large_flower_6080110.JPG"],
-                         [NSURL URLWithString:@"http://setiathome.berkeley.edu/img/head_20.png"],
-                         [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/c/ca/Star-forming_region_S106_(captured_by_the_Hubble_Space_Telescope).jpg"],
-                         [NSURL URLWithString:@"http://hdwallpaper.freehdw.com/0003/nature-landscapes_widewallpaper_large-flowers-close-up_21096.jpg"],
-                         [NSURL URLWithString:@"http://media.cleveland.com/neobirding_impact/photo/11460704-large.jpg"],
-                         [NSURL URLWithString:@"http://www.factzoo.com/sites/all/img/birds/great-hornbill-flying.jpg"]];
+        _largeImageURLs = @[
+                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/8/81/Carn_Eige_Scotland_-_Full_Panorama_from_Summit.jpeg"],
+                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/1/1c/NGC_6302_Hubble_2009.full.jpg"],
+                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/3/3c/Merging_galaxies_NGC_4676_(captured_by_the_Hubble_Space_Telescope).jpg"],
+                            [NSURL URLWithString:@"http://spaceflight.nasa.gov/gallery/images/shuttle/sts-125/hires/s125e012033.jpg"],
+                            [NSURL URLWithString:@"http://mayang.com/textures/Plants/images/Flowers/large_flower_6080110.JPG"],
+                            [NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/3/3d/LARGE_elevation.jpg"],
+                            [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/c/ca/Star-forming_region_S106_(captured_by_the_Hubble_Space_Telescope).jpg"],
+                            [NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG"],
+                            [NSURL URLWithString:@"http://www.highreshdwallpapers.com/wp-content/uploads/2011/09/Large-Format-HD-Wallpaper.jpg"],
+                            [NSURL URLWithString:@"http://www.largeformatphotography.info/qtluong/delicatearch.big.jpeg"]];
 
     }
     return _largeImageURLs;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

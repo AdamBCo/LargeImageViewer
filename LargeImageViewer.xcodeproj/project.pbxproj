@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		878746DC1BF2FDF600ECAF5D /* ConcurrentOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */; };
 		87F072DE1BF19ECA004632D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F072DD1BF19ECA004632D0 /* main.m */; };
 		87F072E11BF19ECA004632D0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F072E01BF19ECA004632D0 /* AppDelegate.m */; };
 		87F072E91BF19ECA004632D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F072E81BF19ECA004632D0 /* Assets.xcassets */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		878746DA1BF2FDF600ECAF5D /* ConcurrentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentOperation.h; sourceTree = "<group>"; };
+		878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentOperation.m; sourceTree = "<group>"; };
 		87F072D91BF19ECA004632D0 /* LargeImageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LargeImageViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87F072DD1BF19ECA004632D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		87F072DF1BF19ECA004632D0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				87F073221BF2418C004632D0 /* Categories */,
 				87F073151BF1A097004632D0 /* ImageDownloadOperation.h */,
 				87F073161BF1A097004632D0 /* ImageDownloadOperation.m */,
+				878746DA1BF2FDF600ECAF5D /* ConcurrentOperation.h */,
+				878746DB1BF2FDF600ECAF5D /* ConcurrentOperation.m */,
 				87F072E81BF19ECA004632D0 /* Assets.xcassets */,
 				87F072EA1BF19ECA004632D0 /* LaunchScreen.storyboard */,
 				87F072ED1BF19ECA004632D0 /* Info.plist */,
@@ -319,6 +324,7 @@
 				87F073111BF19F42004632D0 /* MainViewController.m in Sources */,
 				87F072DE1BF19ECA004632D0 /* main.m in Sources */,
 				87F073141BF19FE5004632D0 /* ImageManager.m in Sources */,
+				878746DC1BF2FDF600ECAF5D /* ConcurrentOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +542,7 @@
 				87F073081BF19ECA004632D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87F073091BF19ECA004632D0 /* Build configuration list for PBXNativeTarget "LargeImageViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +551,7 @@
 				87F0730B1BF19ECA004632D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87F0730C1BF19ECA004632D0 /* Build configuration list for PBXNativeTarget "LargeImageViewerUITests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +560,7 @@
 				87F0730E1BF19ECA004632D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

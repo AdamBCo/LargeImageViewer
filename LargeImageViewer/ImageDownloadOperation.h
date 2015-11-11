@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ConcurrentOperation.h"
 @class ImageDownloadOperation;
 
 @protocol ImageDownloadOperationDelegate <NSObject>
@@ -19,14 +20,12 @@
 @end
 
 
-@interface ImageDownloadOperation : NSOperation
+@interface ImageDownloadOperation : ConcurrentOperation
 
 @property (atomic, strong) NSURL *imageURL;
 
 - (instancetype)initWithImageURL:(NSURL *)imageURL;
 
-
 @property (nonatomic, assign) id <ImageDownloadOperationDelegate> delegate;
-
 
 @end

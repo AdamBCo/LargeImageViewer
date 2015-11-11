@@ -9,6 +9,7 @@
 #import "ImageManager.h"
 #import "ImageDownloadOperation.h"
 
+
 @interface ImageManager () <ImageDownloadOperationDelegate>
 
 @property (nonatomic, strong) NSOperationQueue *largeImageDownloadQueue;
@@ -49,8 +50,7 @@
 }
 
 -(void)imageDownloadOperation:(ImageDownloadOperation *)operation didUpdateWithProgress:(float)progress {
-    self.imageDownloadProgress = progress;
-    [self.delegate imageManagerDidUpdate:self];
+    [self.delegate imageManager:self didUpdateWithProgress:progress];
 }
 
 

@@ -22,7 +22,9 @@
     [self.window makeKeyAndVisible];
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
-    [self.window setRootViewController:mainViewController];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    [navigationController.navigationBar setTranslucent:NO];
+    [self.window setRootViewController:navigationController];
     
     return YES;
 }

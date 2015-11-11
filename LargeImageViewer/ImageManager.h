@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @class ImageManager;
 
 @protocol ImageManagerDelegate <NSObject>
 
 
 - (void)imageManagerDidUpdate:(ImageManager *)manager;
+- (void)imageManager:(ImageManager *)manager didUpdateWithProgress:(float)progress;
+
 
 
 @end
@@ -26,8 +29,6 @@
 @property (nonatomic, assign) id <ImageManagerDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableArray *imagesArray;
-
-@property float imageDownloadProgress;
 
 
 @end
