@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  FullSizeImageViewController.h
 //  LargeImageViewer
 //
 //  Created by Adam Cooper on 11/10/15.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface FullSizeImageViewController : UIViewController
 
-@property (strong, nonatomic) UIWindow *window;
-
+-(instancetype)initWithImage:(UIImage *)image;
 
 @end
-

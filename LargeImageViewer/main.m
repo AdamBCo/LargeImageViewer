@@ -2,7 +2,7 @@
 //  main.m
 //  LargeImageViewer
 //
-//  Created by Adam Cooper on 11/9/15.
+//  Created by Adam Cooper on 11/10/15.
 //  Copyright © 2015 Adam Cooper. All rights reserved.
 //
 

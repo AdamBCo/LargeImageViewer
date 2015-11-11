@@ -2,11 +2,12 @@
 //  AppDelegate.m
 //  LargeImageViewer
 //
-//  Created by Adam Cooper on 11/9/15.
+//  Created by Adam Cooper on 11/10/15.
 //  Copyright © 2015 Adam Cooper. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    [self.window setRootViewController:mainViewController];
+    
     return YES;
 }
 
