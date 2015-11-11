@@ -47,7 +47,7 @@
     //Update UI Elements
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        NSString *titleString = [NSString stringWithFormat:@"1 / %lu",(unsigned long)[ImageManager sharedInstance].imageURLsArray.count];
+        NSString *titleString = [NSString stringWithFormat:@"%lu / %lu",(unsigned long)[ImageManager sharedInstance].imagesArray.count, (unsigned long)[ImageManager sharedInstance].imageURLsArray.count];
         [self setTitle:titleString];
         
         _oldImageCount = (int)[ImageManager sharedInstance].imagesArray.count;
